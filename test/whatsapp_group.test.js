@@ -13,20 +13,20 @@ describe('WhatsAppGroup', () => {
     groupSubject: "This is an automated test"
   }
   
-  before(() => repository = new WhatsAppGroup )
+  before(() => service = new WhatsAppGroup )
   
   describe('#createGroup()', () => {
     it('should return a new id', async () => {
 
       // When Command
 
-      const response = await repository.createGroup(createGroupPayload);
+      const response = await service.createGroup(createGroupPayload);
       groupId = response;
       assert.equal(typeof(response), "string");
 
       // Then Events
 
-      return repository.loadAggregateStream(groupId)
+      return service.loadAggregateStream(groupId)
       .then((stream) => {
         const events = stream.events;
         const eventNames = events.map( (event) => event.payload.eventName )
