@@ -1,0 +1,22 @@
+{
+  "name": "evented_whatsapp_group",
+  "version": "1.0.0",
+  "description": "A code example of how to implement event sourcing in nodeJs",
+  "main": "src/http_api.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eventstore": "^1.15.2",
+    "uid": "^1.0.0"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "mocha": "^8.0.1"
+  },
+  "scripts": {
+    "test": "env NODE_ENV=test mocha test --trace-warnings --recursive --timeout 500 --exit"
+  },
+  "author": "Diego d'Ursel",
+  "license": "ISC"
+}
