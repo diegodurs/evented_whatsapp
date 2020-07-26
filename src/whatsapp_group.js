@@ -1,5 +1,7 @@
 const uid = require('uid');
 
+const reducer = require('./whatsapp_group/reducer.js')
+
 class WhatsAppGroup {
   constructor() {
     // by default, it's a in-memory db 
@@ -14,6 +16,10 @@ class WhatsAppGroup {
         resolve(stream)
       });
     })
+  }
+
+  async getAggregateState(groupId){
+    return reducer.reduce(await this.loadAggregateStream(groupId))
   }
 
   async createGroup(payload){

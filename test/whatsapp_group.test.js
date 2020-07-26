@@ -58,4 +58,30 @@ describe('WhatsAppGroup', () => {
       })
     });
   });
+
+
+  describe('#getAggregateState(aggregate_id)', () => {
+    it('should return end-state', async () => {
+
+      // Given Events (using a command)
+
+      const response = await service.createGroup(createGroupPayload);
+      groupId = response;
+
+      // Then State
+
+      return service.getAggregateState(groupId)
+      .then((reducedState) => {
+        assert.equal(reducedState.groupId, groupId);
+        assert.equal(reducedState.groupSubject, "This is an automated test");
+        assert.equal(reducedState.participants.length, 3);
+        assert.equal(reducedState.participants[0].userId, currentUserId);
+        assert.equal(reducedState.participants[0].admin, true);
+        assert.equal(reducedState.participants[1].userId, user1);
+        assert.equal(reducedState.participants[1].admin, false);
+        assert.equal(reducedState.participants[2].userId, user2);
+        assert.equal(reducedState.participants[2].admin, false);
+      })
+    });
+  });
 });
