@@ -108,7 +108,7 @@ describe('WhatsAppGroup', () => {
       // Then Events
 
       return service.loadAggregateStream(groupId)
-      .then((stream) => {
+      .then(async (stream) => {
         const events = stream.events;
 
         // assert new event
@@ -118,6 +118,12 @@ describe('WhatsAppGroup', () => {
         assert.equal(last_event.payload.eventName, 'ParticipantWasRemoved')
         assert.equal(last_event.payload.groupId, groupId);
         assert.equal(last_event.payload.userId, user2);
+
+
+        // Then State
+
+        const state = await service.getAggregateState(groupId);
+        assert.ok(!state.hasParticipant(user2))
       })
     });
 

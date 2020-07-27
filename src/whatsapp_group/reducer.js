@@ -48,6 +48,12 @@ class WhatsAppGroupReducer {
             admin: event.payload.admin
           })
           break;
+        case 'ParticipantWasRemoved':
+          this.setUpdatedAt(event.commitStamp);
+          this.removeParticipant({
+            userId: event.payload.userId
+          })
+          break;
       }
     })
   }
@@ -58,6 +64,10 @@ class WhatsAppGroupReducer {
 
   addParticipant(participant){
     this.participants.push(participant);
+  }
+
+  removeParticipant(participant){
+    this.participants = this.participants.filter((p) => p.userId !== participant.userId);
   }
 
   setCreatedAt(timestamp){
