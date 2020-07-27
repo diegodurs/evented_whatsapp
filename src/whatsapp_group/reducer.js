@@ -14,6 +14,11 @@ class WhatsAppGroupReducer {
     this.participants = [];
   }
 
+  hasParticipant(userId) {
+    const ids = this.participants.map((participant) => participant.userId)
+    return ids.includes(userId)
+  }
+
   asJson(){
     return {
       groupId: this.groupId,
